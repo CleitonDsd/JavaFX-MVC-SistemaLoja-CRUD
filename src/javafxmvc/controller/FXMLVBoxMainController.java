@@ -1,8 +1,10 @@
 package javafxmvc.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
@@ -17,7 +19,6 @@ public class FXMLVBoxMainController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
     //Todos os componentes utilizados no SceneBuilder'
     @FXML
     private MenuItem menuItemCadastrosClientes;
@@ -29,10 +30,17 @@ public class FXMLVBoxMainController implements Initializable {
     private MenuItem menuItemRelatoriosQuantidadesProdutosEstoque;
     @FXML
     private AnchorPane anchorPane;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
+    //implementa o evento para abrir a tela de cadastro'
+    public void handleMenuItemCadastrosClientes() throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/javafxmvc/view/FXMLAnchorPaneCadastrosClientes.fxml"));
+        //seta a tela de cadastro para aparecer dentro do VBOX MAIN
+        anchorPane.getChildren().setAll(a);
+    }
+
 }
