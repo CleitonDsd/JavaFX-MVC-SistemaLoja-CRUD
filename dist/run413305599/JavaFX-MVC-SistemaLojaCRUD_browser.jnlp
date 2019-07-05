@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="JavaFX-MVC-SistemaLojaCRUD.jnlp">
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="JavaFX-MVC-SistemaLojaCRUD_browser.jnlp">
   <information>
     <title>JavaFX-MVC-SistemaLojaCRUD</title>
     <vendor>Rafael</vendor>
@@ -8,10 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="JavaFX-MVC-SistemaLojaCRUD.jar" size="23078" download="eager" />
+    <jar href="JavaFX-MVC-SistemaLojaCRUD.jar" size="26865" download="eager" />
+    <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
     <jar href="lib\postgresql-9.4.1209.jar" size="678049" download="eager" />
   </resources>
-  <application-desc main-class="javafxmvc.Main"  name="JavaFX-MVC-SistemaLojaCRUD" >
-  </application-desc>
+  <applet-desc  width="800" height="600" main-class="javafxmvc.Main"  name="JavaFX-MVC-SistemaLojaCRUD" >
+  </applet-desc>
   <update check="always"/>
 </jnlp>
