@@ -30,7 +30,6 @@ import javafxmvc.model.domain.Cliente;
  */
 public class FXMLAnchorPaneCadastrosClientesController implements Initializable {
 
-    //Adicionando atributos utilizados na parte visual (SceneBuilder)'
     @FXML
     private TableView<Cliente> tableViewClientes;
     @FXML
@@ -46,33 +45,32 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
     @FXML
     private Label labelClienteCodigo;
     @FXML
-    private Label labelClienteCPF;
-    @FXML
     private Label labelClienteNome;
+    @FXML
+    private Label labelClienteCPF;
     @FXML
     private Label labelClienteTelefone;
 
-    //A classe irá retornar uma lista de clientes usando o List'
     private List<Cliente> listClientes;
-    //Iremos setar os dados do tableView com o ObservableList'
     private ObservableList<Cliente> observableListClientes;
 
-    //Atributos para a manipulação do DB';
-    //fornece uma instancia da classe DB MySQL'
-    private final Database database = DatabaseFactory.getDatabase("dbsistemaloja");
+    //Atributos para manipulação de Banco de Dados
+    private final Database database = DatabaseFactory.getDatabase("postgresql");
     private final Connection connection = database.conectar();
     private final ClienteDAO clienteDAO = new ClienteDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Acesso ao DB para - setando a conexão recem criada'
         clienteDAO.setConnection(connection);
         carregarTableViewCliente();
+
+        // Listen acionado diante de quaisquer alterações na seleção de itens do TableView
+        tableViewClientes.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> selecionarItemTableViewClientes(newValue));
+
     }
 
-    //Carrega a tabela de clientes'
     public void carregarTableViewCliente() {
-
         //Determina que a coluna 'tableColumnClienteNome' exiba o nome e o CPF do cliente'
         tableColumnClienteNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tableColumnClienteCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
@@ -83,7 +81,20 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
         //Converte o listClientes em um observableList, e depois converte o Observable para um tblView
         observableListClientes = FXCollections.observableArrayList(listClientes);
         tableViewClientes.setItems(observableListClientes);
-
     }
 
+    public void selecionarItemTableViewClientes(Cliente cliente) {
+        if (cliente != null) {
+            labelClienteCodigo.setText(String.valueOf(cliente.getCdCliente()));
+            labelClienteNome.setText(cliente.getNome());
+            labelClienteCPF.setText(cliente.getCpf());
+            labelClienteTelefone.setText(cliente.getTelefone());
+        } else {
+            labelClienteCodigo.setText("");
+            labelClienteNome.setText("");
+            labelClienteCPF.setText("");
+            labelClienteTelefone.setText("");
+        }
+
+    }
 }
