@@ -5,8 +5,6 @@
         <group>
             <file>file:/C:/Users/sdias/OneDrive/Documentos/NetBeansProjects/JavaFX-MVC-SistemaLojaCRUD/src/javafxmvc/controller/FXMLVBoxMainController.java</file>
             <file>file:/C:/Users/sdias/OneDrive/Documentos/NetBeansProjects/JavaFX-MVC-SistemaLojaCRUD/src/javafxmvc/model/database/DatabasePostgreSQL.java</file>
-            <file>file:/C:/Users/sdias/OneDrive/Documentos/NetBeansProjects/JavaFX-MVC-SistemaLojaCRUD/src/javafxmvc/controller/FXMLAnchorPaneCadastrosClientesController.java</file>
-            <file>file:/C:/Users/sdias/OneDrive/Documentos/NetBeansProjects/JavaFX-MVC-SistemaLojaCRUD/src/javafxmvc/model/dao/ClienteDAO.java</file>
             <file>file:/C:/Users/sdias/OneDrive/Documentos/NetBeansProjects/JavaFX-MVC-SistemaLojaCRUD/src/javafxmvc/Main.java</file>
         </group>
     </open-files>
