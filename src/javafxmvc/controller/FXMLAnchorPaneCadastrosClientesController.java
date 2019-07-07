@@ -5,6 +5,7 @@
  */
 package javafxmvc.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.List;
@@ -13,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -83,6 +85,7 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
         tableViewClientes.setItems(observableListClientes);
     }
 
+    @FXML
     public void selecionarItemTableViewClientes(Cliente cliente) {
         if (cliente != null) {
             labelClienteCodigo.setText(String.valueOf(cliente.getCdCliente()));
@@ -95,6 +98,56 @@ public class FXMLAnchorPaneCadastrosClientesController implements Initializable 
             labelClienteCPF.setText("");
             labelClienteTelefone.setText("");
         }
+    }
 
+    @FXML
+    public void selecionarItemTableViewCliente(Cliente cliente) {
+        if (cliente != null) {
+            labelClienteCodigo.setText(String.valueOf(cliente.getCdCliente()));
+            labelClienteNome.setText(cliente.getNome());
+            labelClienteCPF.setText(cliente.getCpf());
+            labelClienteTelefone.setText(cliente.getTelefone());
+        }
+    }
+
+    @FXML
+    public void handleButtonInserir() throws IOException {
+        //criamos um novo cliente
+        Cliente cliente = new Cliente();
+        boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastrosClientesDialog(cliente);
+        if (buttonConfirmarClicked) {
+            clienteDAO.inserir(cliente);
+            carregarTableViewCliente();
+        }
+    }
+
+    @FXML
+    public void handleButtonAlterar() throws IOException {
+        //Não criamos um novo cliente e sim selecionamos
+        Cliente cliente = tableViewClientes.getSelectionModel().getSelectedItem();
+        if (cliente != null) {
+            boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastrosClientesDialog(cliente);
+            if (buttonConfirmarClicked) {
+                clienteDAO.alterar(cliente);
+                carregarTableViewCliente();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Por favor, selecione um cliente na Tabela!");
+                alert.show();
+            }
+        }
+    }
+
+    @FXML
+    public void handleButtonRemover() throws IOException {
+        Cliente cliente = tableViewClientes.getSelectionModel().getSelectedItem();
+        if (cliente != null) {
+            clienteDAO.remover(cliente);
+            carregarTableViewCliente();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Para realizar a exclusão, é necessário selecionar um cliente na Tabela!");
+            alert.show();
+        }
     }
 }
